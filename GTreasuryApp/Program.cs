@@ -7,7 +7,7 @@ using Microsoft.Azure.Functions.Worker.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-var builder = Host.CreateDefaultBuilder(args); // Changed to use Host.CreateDefaultBuilder
+var builder = Host.CreateDefaultBuilder(args);
 
 builder.ConfigureFunctionsWebApplication(workerApp =>
 {
