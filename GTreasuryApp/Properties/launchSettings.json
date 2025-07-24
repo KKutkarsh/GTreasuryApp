@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "GTreasuryApp": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7266",
+      "launchBrowser": false
+    }
+  }
+}
