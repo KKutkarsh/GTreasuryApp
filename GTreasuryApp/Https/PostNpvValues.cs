@@ -37,6 +37,6 @@ public class PostNpvValues(INpvProcessingService processingService, NpvInputVali
 
         //var result1 = rateChunks.SelectMany(batchOfRates => _npvCalculator.CalculateBatch(input, batchOfRates)).OrderBy(r => r.Rate).ToList();
 
-        return await req.CreateJsonResponseAsync(System.Net.HttpStatusCode.OK, result1);
+        return await req.CreateJsonResponseAsync(System.Net.HttpStatusCode.OK, result);
     }
 }
