@@ -97,26 +97,26 @@ namespace GTreasury.Api.Functions.Services
         {
             var results = new List<NpvResult>();
 
-            int baseYear = input.CashFlows.Min(x => x.Year);
+            // IMPORTANT: Match the base year logic from Approach 1
+            int baseYear = input.EvaluationYear;
 
             foreach (var rate in rates)
             {
-                double convertedRate = rate / 100;
-                double c0 = input.CashFlows.FirstOrDefault(cf => cf.Year == baseYear)?.Amount ?? 0;
-                double discountedSum = 0;
+                double convertedRate = rate / 100.0;
+                double npv = 0;
 
-                foreach (var flow in input.CashFlows.Where(cf => cf.Year > baseYear))
+                // Process all cash flows exactly as in Approach 1
+                foreach (var cashFlow in input.CashFlows)
                 {
-                    int t = flow.Year - baseYear;
-                    discountedSum += flow.Amount / Math.Pow((double)(1 + convertedRate), t);
+                    int t = cashFlow.Year - baseYear;
+                    npv += cashFlow.Amount / Math.Pow(1 + convertedRate, t);
                 }
-
-                double npv = discountedSum - c0;
 
                 results.Add(new NpvResult
                 {
-                    Rate = Math.Round(rate, 2),
-                    Value = Math.Round(npv, 2)
+                    Rate = rate,
+                    // Match the 5-decimal precision from Approach 1
+                    Value = Math.Round(npv, 5)
                 });
             }
 

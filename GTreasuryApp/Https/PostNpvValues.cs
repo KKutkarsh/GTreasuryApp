@@ -43,8 +43,8 @@ public class PostNpvValues(INpvCalculator npvCalculator, NpvInputValidator valid
         //var rateList = _npvCalculator.GetRateRange(input.LowerRate, input.UpperRate, input.Increment);
         //var rateChunks = BatchHelper.Chunk(rateList, size: 10);
 
-        //var result1 = rateChunks.SelectMany(x => _npvCalculator.CalculateBatch(input, x)).ToList();
+        //var result1 = rateChunks.SelectMany(batchOfRates => _npvCalculator.CalculateBatch(input, batchOfRates)).OrderBy(r => r.Rate).ToList();
 
-        return await req.CreateJsonResponseAsync(System.Net.HttpStatusCode.OK, result);
+        return await req.CreateJsonResponseAsync(System.Net.HttpStatusCode.OK, result1);
     }
 }
