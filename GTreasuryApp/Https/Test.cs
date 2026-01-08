@@ -1,26 +1,29 @@
 using GTreasury.Api.Functions.Extensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.FeatureManagement;
 using System.Net;
 
 namespace GTreasury.Api.Functions.Https;
 
-public class Test
+public class Test(IFeatureManager featureManager, ILogger<Test> logger)
 {
-    private readonly ILogger<Test> _logger;
+    private readonly IFeatureManager _featureManager = featureManager;
+    private readonly ILogger<Test> _logger = logger;
 
-    public Test(ILogger<Test> logger)
-    {
-        _logger = logger;
-    }
 
-    [Function("Test")]
+    [Function(nameof(Test))]
     public async Task<HttpResponseData> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get")] HttpRequestData req)
     {
-       return await req.CreateJsonResponseAsync(HttpStatusCode.OK, "result");
+        if (await _featureManager.IsEnabledAsync("EnableNpvBatchProcessing"))
+        {
+            _logger.LogInformation("EnableNpvBatchProcessing is enabled.");
+        }
+        else
+        {
+            _logger.LogInformation("EnableNpvBatchProcessing is disabled.");
+        }
+        return await req.CreateJsonResponseAsync(HttpStatusCode.OK, "result");
     }
 }

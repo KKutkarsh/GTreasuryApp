@@ -2,7 +2,7 @@
 {
     public static class BatchHelper
     {
-        public static IEnumerable<List<T>> Chunk<T>(IEnumerable<T> source, int size)
+        public static IEnumerable<List<T>> Chunk<T>(IEnumerable<T> source, int size = 10)
         {
             var batch = new List<T>(size);
 

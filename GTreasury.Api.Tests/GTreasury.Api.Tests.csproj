@@ -17,4 +17,8 @@
     <ProjectReference Include="..\GTreasuryApp\GTreasury.Api.Functions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Https\" />
+  </ItemGroup>
+
 </Project>

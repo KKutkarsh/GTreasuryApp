@@ -2,7 +2,7 @@
 using GTreasury.Api.Utilities.Records;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace GTreasury.Api.Tests
+namespace GTreasury.Api.Tests.Services
 {
     //Not testing the NPV values as per formula because of time constraints
 
